@@ -33,9 +33,14 @@ app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/build')));
+// app.use(express.static(path.join(__dirname, '/build')));
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/build/index.html'))
+  res.sendFile(
+    path.join(
+      __dirname,
+      'https://melodious-croquembouche-ed3d4a.netlify.app/index.html'
+    )
+  )
 );
 
 app.use((err, req, res, next) => {
