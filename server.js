@@ -6,7 +6,7 @@ import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
-var cors = require('cors');
+
 dotenv.config();
 
 mongoose
@@ -19,7 +19,6 @@ mongoose
   });
 
 const app = express();
-app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,14 +33,9 @@ app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static(path.join(__dirname, '/build')));
 app.get('*', (req, res) =>
-  res.sendFile(
-    path.join(
-      __dirname,
-      'https://melodious-croquembouche-ed3d4a.netlify.app/index.html'
-    )
-  )
+  res.sendFile(path.join(__dirname, '/build/index.html'))
 );
 
 app.use((err, req, res, next) => {
