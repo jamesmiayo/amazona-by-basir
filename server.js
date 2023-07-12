@@ -33,21 +33,9 @@ app.use('https://amazona-by-basir.onrender.com/api/users', userRouter);
 app.use('https://amazona-by-basir.onrender.com/api/orders', orderRouter);
 
 const __dirname = path.resolve();
-app.use(
-  express.static(
-    path.join(
-      __dirname,
-      'https://master--melodious-croquembouche-ed3d4a.netlify.app/'
-    )
-  )
-);
+app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) =>
-  res.sendFile(
-    path.join(
-      __dirname,
-      'https://master--melodious-croquembouche-ed3d4a.netlify.app/index.html'
-    )
-  )
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
 );
 
 app.use((err, req, res, next) => {
