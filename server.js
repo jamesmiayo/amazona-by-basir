@@ -23,23 +23,32 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get(
-  `https://amazona-by-basir.onrender.com//api/keys/paypal`,
-  (req, res) => {
-    res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
-  }
-);
+app.get(`https://amazona-by-basir.onrender.com/api/keys/paypal`, (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 
 app.use('https://amazona-by-basir.onrender.com/api/seed', seedRouter);
 app.use('https://amazona-by-basir.onrender.com/api/products', productRouter);
 app.use('https://amazona-by-basir.onrender.com/api/users', userRouter);
-app.use('/api/orders', orderRouter);
+app.use('https://amazona-by-basir.onrender.com/api/orders', orderRouter);
 
-// const __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, '/frontend/build')));
-// app.get('*', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
-// );
+const __dirname = path.resolve();
+app.use(
+  express.static(
+    path.join(
+      __dirname,
+      'https://master--melodious-croquembouche-ed3d4a.netlify.app/'
+    )
+  )
+);
+app.get('*', (req, res) =>
+  res.sendFile(
+    path.join(
+      __dirname,
+      'https://master--melodious-croquembouche-ed3d4a.netlify.app/index.html'
+    )
+  )
+);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
