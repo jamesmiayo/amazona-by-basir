@@ -7,6 +7,8 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
+const cors = require('cors');
+
 dotenv.config();
 
 mongoose
@@ -17,6 +19,8 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+
+app.use(cors({ allowedHeaders: '*', allowMethods: '*', origin: '*' }));
 
 const app = express();
 
@@ -32,11 +36,11 @@ app.use('/api/products', productRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/build')));
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/build/index.html'))
-);
+// const __dirname = path.resolve();
+// app.use(express.static(path.join(__dirname, '/build')));
+// app.get('*', (req, res) =>
+//   res.sendFile(path.join(__dirname, '/build/index.html'))
+// );
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
