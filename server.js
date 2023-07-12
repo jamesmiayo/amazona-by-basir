@@ -7,7 +7,7 @@ import productRouter from './routes/productRoutes.js';
 import userRouter from './routes/userRoutes.js';
 import orderRouter from './routes/orderRoutes.js';
 
-const cors = require('cors');
+// const cors = require('cors');
 
 dotenv.config();
 
@@ -23,7 +23,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 app.get(`/api/keys/paypal`, (req, res) => {
@@ -36,9 +36,9 @@ app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/index')));
+app.use(express.static(path.join(__dirname, '/build')));
 app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/index/index.html'))
+  res.sendFile(path.join(__dirname, '/build/index.html'))
 );
 
 app.use((err, req, res, next) => {
