@@ -20,9 +20,8 @@ mongoose
     console.log(err.message);
   });
 
-app.use(cors({ allowedHeaders: '*', allowMethods: '*', origin: '*' }));
-
 const app = express();
+app.use(cors({ allowedHeaders: '*', allowMethods: '*', origin: '*' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
